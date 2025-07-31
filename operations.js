@@ -1,6 +1,14 @@
 function isOperator(char) {
-  return char === "+" || char === "-" || char === "*" || char === "/";
+  return char in operators;
 }
+
+const operators = {
+  '+': { precedence: 2, associativity: 'Left' },
+  '-': { precedence: 2, associativity: 'Left' },
+  '*': { precedence: 3, associativity: 'Left' },
+  '/': { precedence: 3, associativity: 'Left' },
+  '^': { precedence: 4, associativity: 'Right' }
+};
 
 function cleanString(expression) {
   let i = 0,
@@ -22,7 +30,7 @@ function cleanString(expression) {
   let str2 = expression.slice(i + 1);
 
   return { str1, op, str2 };
-}
+};
 
 function evaluate(expression) {
   let clean = cleanString(expression);
@@ -35,26 +43,9 @@ function evaluate(expression) {
     return "err";
   }
 
-  let ans;
-  switch (clean.op) {
-    case "-":
-      ans = subtract(a, b);
-      break;
-    case "+":
-      ans = add(a, b);
-      break;
-    case "/":
-      ans = divide(a, b);
-      break;
-    case "*":
-      ans = multiply(a, b);
-      break;
-    default:
-      console.log("Invalid operator used!\n");
-      return "err";
-  }
-
-  console.log("answer: " + ans + "\n");
+  let ans = shuntingYard(expression);
+  console.log(ans);
+  // console.log("answer: " + ans + "\n");
   return ans.toFixed(3);
 }
 

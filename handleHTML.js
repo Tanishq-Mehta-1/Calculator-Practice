@@ -51,7 +51,6 @@ btns.forEach((item) => {
     expression += num;
     toDisplay += num;
     document.querySelector(".display").textContent = toDisplay;
-    console.log(`${expression} ${toDisplay}`);
   });
 });
 
