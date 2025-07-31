@@ -9,11 +9,20 @@ for (let j = 0; j < 4; j++) {
   for (let i = 0; i < 3; i++) {
     const btn = document.createElement("button");
     let num = count.toString();
+
+    if (j === 3 && i === 1) {
+      num = "=";
+      btn.classList.add("equate");
+    }
+    if (j === 3 && i === 2) {
+      num = ".";
+      btn.classList.add("decimal");
+    }
+
     btn.classList.add("btn_num");
     btn.textContent = num;
     row.appendChild(btn);
 
-    if (j === 3 && count == 0) break;
     count++;
   }
 
@@ -21,19 +30,30 @@ for (let j = 0; j < 4; j++) {
 }
 
 const num_btns = document.querySelectorAll(".btn_num");
-const btns = document.querySelectorAll("button");
+const btns = document.querySelectorAll("button:not(.equate)");
 
-let expression = '';
+let expression = "",
+  toDisplay = "";
+
+document.querySelector(".equate").addEventListener("click", () => {
+  let ans = evaluate(expression);
+  if (ans === "err") ans = "ERROR";
+  document.querySelector(".display").textContent = ans;
+  expression = toDisplay = "";
+});
 
 btns.forEach((item) => {
-
-  item.addEventListener("click", ()=>{
+  item.addEventListener("click", () => {
     let num = item.textContent;
+    if (isOperator(num) || isOperator(expression[expression.length - 1]))
+      toDisplay += " ";
+
     expression += num;
-    console.log(expression);
-  })
-  
-})
+    toDisplay += num;
+    document.querySelector(".display").textContent = toDisplay;
+    console.log(`${expression} ${toDisplay}`);
+  });
+});
 
 num_btns.forEach((item) => {
   item.addEventListener("mouseenter", () => {
@@ -44,5 +64,3 @@ num_btns.forEach((item) => {
     item.classList.remove("btn_num_clicked");
   });
 });
-
-

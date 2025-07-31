@@ -1,35 +1,38 @@
-// let expression = prompt("Enter the expression: ", "0+0");
-
 function isOperator(char) {
   return char === "+" || char === "-" || char === "*" || char === "/";
 }
 
+function cleanString(expression) {
+  let i = 0,
+    n = expression.length,
+    str1 = "";
+
+  if (expression[0] === "+" || expression[0] === "-") {
+    str1 += expression[0];
+    i = 1;
+  }
+
+  while (i < n) {
+    if (isOperator(expression[i])) break;
+    str1 += expression[i];
+    i++;
+  }
+
+  let op = expression[i];
+  let str2 = expression.slice(i + 1);
+
+  return { str1, op, str2 };
+}
+
 function evaluate(expression) {
-  let clean = (function (expression) {
-    let i = 0,
-      n = expression.length;
-    let str1 = "";
-    while (i < n) {
-      if (isOperator(expression[i])) break;
-      str1 += expression[i];
-      i++;
-    }
-
-    let op = expression[i];
-    let str2 = expression.slice(i + 1);
-
-    return { str1, op, str2 };
-  })(expression);
-
-  console.log(clean);
-
+  let clean = cleanString(expression);
   let a = Number(clean.str1);
   let b = Number(clean.str2);
 
   //check for valid
   if (isNaN(a) || isNaN(b)) {
     console.log("Invalid number used!\n");
-    return "";
+    return "err";
   }
 
   let ans;
@@ -48,10 +51,11 @@ function evaluate(expression) {
       break;
     default:
       console.log("Invalid operator used!\n");
-      return "";
+      return "err";
   }
 
   console.log("answer: " + ans + "\n");
+  return ans.toFixed(3);
 }
 
 function add(a, b) {

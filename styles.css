@@ -12,6 +12,7 @@ body {
 
   font-family: "Orbitron", sans-serif;
 }
+
 h1 {
   font-size: 50px;
   margin-bottom: 30px;
@@ -19,13 +20,14 @@ h1 {
 
 .calculator-body {
   flex: 0 1 auto;
-  background-color: gray;
+  background-color: rgb(190, 190, 190);
   width: 50%;
   height: 70%;
   max-width: 500px;
   min-width: 325px;
   max-height: 700px;
   min-height: 400px;
+  margin-bottom: 10px;
 
   border-radius: 20px;
 
@@ -72,8 +74,8 @@ h1 {
   border: 0px;
   font-size: xx-large;
   color: rgb(73, 75, 74);
-  background-color: rgb(123, 184, 170);
-  box-shadow: 0 2px 5px black;
+  background-color: rgb(152, 211, 197);
+  box-shadow: 0 2px 5px rgb(84, 141, 128);
   margin: 5px;
 }
 
@@ -103,11 +105,17 @@ h1 {
   border: 0px;
   font-size: xx-large;
   color: rgb(73, 75, 74);
-  box-shadow: 0 2px 5px black;
+  box-shadow: 0 2px 5px rgb(80, 80, 80);
   margin: 5px;
 }
 
 .btn_num_clicked {
   background-color: rgb(63, 63, 63);
   color: white;
+}
+
+.decimal,
+.equate {
+  flex: 0 1 auto;
+  width: 25%;
 }
