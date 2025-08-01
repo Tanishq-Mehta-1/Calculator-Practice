@@ -5,18 +5,33 @@ for (let j = 0; j < 4; j++) {
   let row = document.createElement("div");
   row.classList.add("row_num");
 
-  count = count >= 10 ? 0 : count;
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 4; i++) {
+    count = count >= 10 ? 0 : count;
+
     const btn = document.createElement("button");
     let num = count.toString();
 
     if (j === 3 && i === 1) {
-      num = "=";
-      btn.classList.add("equate");
-    }
-    if (j === 3 && i === 2) {
       num = ".";
       btn.classList.add("decimal");
+    } else if (j === 3 && i === 2) {
+      num = "=";
+      btn.classList.add("equate");
+    } else if (i == 3) {
+      switch (j) {
+        case 0:
+          num = "/";
+          break;
+        case 1:
+          num = "*";
+          break;
+        case 2:
+          num = "-";
+          break;
+        case 3:
+          num = "+";
+          break;
+      }
     }
 
     btn.classList.add("btn_num");
@@ -30,11 +45,13 @@ for (let j = 0; j < 4; j++) {
 }
 
 const num_btns = document.querySelectorAll(".btn_num");
-const btns = document.querySelectorAll("button:not(.equate)");
+const op_btns = document.querySelectorAll(".operators button");
+const all_btns = document.querySelectorAll("button:not(.equate, .clear)");
 
 let expression = "",
   toDisplay = "";
 
+// adding logic to '='
 document.querySelector(".equate").addEventListener("click", () => {
   let ans = evaluate(expression);
   if (ans === "err") ans = "ERROR";
@@ -42,7 +59,14 @@ document.querySelector(".equate").addEventListener("click", () => {
   expression = toDisplay = "";
 });
 
-btns.forEach((item) => {
+//handle AC
+document.querySelector(".clear").addEventListener("click", () => {
+  expression = toDisplay = "";
+   document.querySelector(".display").textContent = toDisplay;
+})
+
+// live display of expression
+all_btns.forEach((item) => {
   item.addEventListener("click", () => {
     let num = item.textContent;
     if (isOperator(num) || isOperator(expression[expression.length - 1]))
@@ -51,6 +75,17 @@ btns.forEach((item) => {
     expression += num;
     toDisplay += num;
     document.querySelector(".display").textContent = toDisplay;
+  });
+});
+
+// button click thing
+op_btns.forEach((item) => {
+  item.addEventListener("mouseenter", () => {
+    item.classList.add("btn_op_clicked");
+  });
+
+  item.addEventListener("mouseleave", () => {
+    item.classList.remove("btn_op_clicked");
   });
 });
 

@@ -3,11 +3,11 @@ function isOperator(char) {
 }
 
 const operators = {
-  '+': { precedence: 2, associativity: 'Left' },
-  '-': { precedence: 2, associativity: 'Left' },
-  '*': { precedence: 3, associativity: 'Left' },
-  '/': { precedence: 3, associativity: 'Left' },
-  '^': { precedence: 4, associativity: 'Right' }
+  "+": { precedence: 2, associativity: "Left" },
+  "-": { precedence: 2, associativity: "Left" },
+  "*": { precedence: 3, associativity: "Left" },
+  "/": { precedence: 3, associativity: "Left" },
+  "^": { precedence: 4, associativity: "Right" },
 };
 
 function inputParse(expression) {
@@ -30,36 +30,13 @@ function inputParse(expression) {
   let str2 = expression.slice(i + 1);
 
   return { str1, op, str2 };
-};
+}
 
 function evaluate(expression) {
-  // let clean = inputParse(expression);
-  // let a = Number(clean.str1);
-  // let b = Number(clean.str2);
-
-  //check for valid
-  // if (isNaN(a) || isNaN(b)) {
-  //   console.log("Invalid number used!\n");
-  //   return "err";
-  // }
-
   let postfix = shuntingYard(expression);
   let ans = evaluatePostfix(postfix);
-  console.log(ans);
-  console.log(postfix.join(''));
-  return ans.toFixed(3);
-}
 
-function add(a, b) {
-  return a + b;
-}
-function subtract(a, b) {
-  return a - b;
-}
-function divide(a, b) {
-  if (b === 0) return "";
-  return a / b;
-}
-function multiply(a, b) {
-  return a * b;
+  console.log(ans);
+  if (ans !== "err") return ans.toFixed(3);
+  else return ans;
 }
