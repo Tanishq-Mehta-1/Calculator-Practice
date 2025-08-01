@@ -10,7 +10,7 @@ const operators = {
   '^': { precedence: 4, associativity: 'Right' }
 };
 
-function cleanString(expression) {
+function inputParse(expression) {
   let i = 0,
     n = expression.length,
     str1 = "";
@@ -33,19 +33,20 @@ function cleanString(expression) {
 };
 
 function evaluate(expression) {
-  let clean = cleanString(expression);
-  let a = Number(clean.str1);
-  let b = Number(clean.str2);
+  // let clean = inputParse(expression);
+  // let a = Number(clean.str1);
+  // let b = Number(clean.str2);
 
   //check for valid
-  if (isNaN(a) || isNaN(b)) {
-    console.log("Invalid number used!\n");
-    return "err";
-  }
+  // if (isNaN(a) || isNaN(b)) {
+  //   console.log("Invalid number used!\n");
+  //   return "err";
+  // }
 
-  let ans = shuntingYard(expression);
+  let postfix = shuntingYard(expression);
+  let ans = evaluatePostfix(postfix);
   console.log(ans);
-  // console.log("answer: " + ans + "\n");
+  console.log(postfix.join(''));
   return ans.toFixed(3);
 }
 
