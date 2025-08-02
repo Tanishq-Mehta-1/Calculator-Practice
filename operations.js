@@ -35,8 +35,8 @@ function inputParse(expression) {
 function evaluate(expression) {
   let postfix = shuntingYard(expression);
   let ans = (postfix === "err") ? "err" : evaluatePostfix(postfix);
-  console.log(ans);
+  console.log("ans: " + ans);
 
-  if (ans !== "err") return ans.toFixed(3);
+  if (ans !== "err") return ans;
   else return ans;
 }

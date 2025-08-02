@@ -18,8 +18,7 @@ function tokenize(expression) {
 }
 
 function shuntingYard(expression) {
-
-  if (expression === '') {
+  if (expression === "") {
     console.log("Invalid expression!\n");
     return "err";
   }
@@ -108,6 +107,10 @@ function evaluatePostfix(expression) {
   if (stack.length !== 1) {
     throw new Error("Invalid postfix expression");
   }
+  
+  let num = Math.floor(stack[0] * 1000) / 1000;
 
-  return stack[0];
+  console.log(`Pre-processed: ${stack[0]}, Processed: ${num}`);
+
+  return num;
 }
