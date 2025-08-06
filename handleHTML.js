@@ -18,6 +18,7 @@ for (let j = 0; j < 4; j++) {
       num = "=";
       btn.classList.add("equate");
     } else if (i == 3) {
+      count--;
       switch (j) {
         case 0:
           num = "/";
@@ -62,8 +63,8 @@ document.querySelector(".equate").addEventListener("click", () => {
 //handle AC
 document.querySelector(".clear").addEventListener("click", () => {
   expression = toDisplay = "";
-   document.querySelector(".display").textContent = toDisplay;
-})
+  document.querySelector(".display").textContent = toDisplay;
+});
 
 // live display of expression
 all_btns.forEach((item) => {
